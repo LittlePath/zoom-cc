@@ -13,6 +13,9 @@ window.customElements.define('zoom-cc',
       this.transcribing = false;
       this.sequence = 1;
 
+      let zoomLanguageField = this.shadowRoot.querySelector('#zoomLanguage');
+      zoomLanguageField.value = navigator.language;
+
       let startStopButton = this.shadowRoot.querySelector('#start-stop');
       startStopButton.onclick = (event) => {
         if(this.transcribing){
@@ -40,13 +43,18 @@ window.customElements.define('zoom-cc',
     get content(){
       let content = document.createElement('section');
       content.innerHTML = `
-<p><button id="start-stop">Start CC</button></p>
-
 <p>
   <label for="zoomURL">Zoom CC API Token</label> <br>
   <input type="url" name="zoomURL" id="zoomURL"></input>
 </p>
 
+<p>
+  <label for="zoomLanguage">Language</label> <br>
+  <input type="text" name="zoomLanguage" id="zoomLanguage"></input>
+  (en-US for American English, es-MX for Mexican Spanish, etc.)
+</p>
+
+<p><button id="start-stop">Start CC</button></p>
 <div id="transcript-window"></div> 
       `;
 
@@ -54,12 +62,12 @@ window.customElements.define('zoom-cc',
     }
 
     start(){
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       let startStopButton = this.shadowRoot.querySelector('#start-stop');
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
       if(typeof SpeechRecognition === "undefined"){
-        this.write(`This browser doesn't support the <a href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition">SpeechRecognition</a> API. Try Google Chrome or one of the browsers listed at <a href="https://caniuse.com/mdn-api_speechrecognition">caniuse.com</a>.`);  
         startStopButton.disabled = true;
+        this.write(`This browser doesn't support the <a href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition">SpeechRecognition</a> API. Try Google Chrome or one of the browsers listed at <a href="https://caniuse.com/mdn-api_speechrecognition">caniuse.com</a>.`);  
       }else{
         startStopButton.innerHTML = 'Stop CC';
         startStopButton.classList.add('stop');
@@ -99,7 +107,8 @@ window.customElements.define('zoom-cc',
 
     async postToZoom(message){
       let zoomURL = this.shadowRoot.querySelector('#zoomURL').value;
-      zoomURL += '&lang=en-US';
+      let zoomLanguage = this.shadowRoot.querySelector('#zoomLanguage').value;
+      zoomURL += `&lang=${zoomLanguage}`;
       zoomURL += `&seq=${this.sequence++}`;
 
       const options = {
