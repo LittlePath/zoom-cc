@@ -1,5 +1,5 @@
 # zoom-transcript
-W3C Web Component to display closed captioning / live transcript in a Zoom video call.
+W3C Web Component to display closed captions / live transcript in a Zoom video call.
 
 To add closed captions to your Zoom call:
 
