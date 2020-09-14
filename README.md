@@ -1,6 +1,8 @@
 # zoom-transcript
 W3C Web Component to display closed captions / live transcript in a Zoom video call.
 
+Live demo: https://littlepath.org/zoom-cc
+
 To add closed captions to your Zoom call:
 
 * As the host of a Zoom meeting, click on the "CC (Closed Caption)" button in your toolbar 
