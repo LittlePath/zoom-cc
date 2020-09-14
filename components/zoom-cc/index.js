@@ -36,6 +36,34 @@ window.customElements.define('zoom-cc',
         #zoomURL{
           width: 75vw;
         }
+
+        .button-instructions{
+          style: inline-block;
+          background: #ccc;
+          border-radius: 5px;
+          font-weight: bold;
+          padding: 0.2em;
+          border: solid black 1px;
+        }
+
+        .field-instructions{
+          font-weight: bold;
+        }
+
+        button{
+          font-weight: bold;
+          background-color: #ccc;
+          padding: 0.2em;
+          border-radius: 5px;
+        }
+
+        label{
+          font-weight: bold;
+        }
+
+        li{
+          line-height: 1.5em;
+        }
       `;
       return style;
     }
@@ -43,6 +71,25 @@ window.customElements.define('zoom-cc',
     get content(){
       let content = document.createElement('section');
       content.innerHTML = `
+<p>
+To add closed captions to your Zoom call:
+</p>
+
+<ol>
+  <li>As the host of a Zoom meeting, click the <span class="button-instructions">CC (Closed Caption)</span> button in your Zoom toolbar</li>
+  <li>Click the <span class="button-instructions">Copy the API token</span> button under <span class="field-instructions">"Use a 3rd party CC service"</span>.</li>
+  <li>Paste it into the <span class="field-instructions">"Zoom CC API Token"</span> field on this page.</li> 
+  <li>Press the <span class="button-instructions">Start CC</span> button on this page to start closed captions.</li> 
+</ol>
+
+<p>
+You should see the transcript appear on this page as well as in your Zoom call.
+</p>
+
+<p>
+NOTE: If you are the host of a Zoom call and you don't see a "CC (Closed Caption)" button in your Zoom toolbar, follow Zoom's instructions to enable closed captioning: <a href="https://support.zoom.us/hc/en-us/articles/207279736-Using-closed-captioning">https://support.zoom.us/hc/en-us/articles/207279736-Using-closed-captioning</a>
+</p>
+
 <p>
   <label for="zoomURL">Zoom CC API Token</label> <br>
   <input type="url" name="zoomURL" id="zoomURL"></input>
