@@ -126,9 +126,10 @@ NOTE: If you are the host of a Zoom call and you don't see a "CC (Closed Caption
           const result = event.results[event.resultIndex][0].transcript;
           this.write(result);
           this.postToZoom(result);
+          this.scrollToBottom();
         }
         this.recognition.onerror = (event) => {
-          console.error(event);
+          console.log(event);
         }
         this.recognition.onstart = (event) => {
           this.transcribing = true;
@@ -168,7 +169,12 @@ NOTE: If you are the host of a Zoom call and you don't see a "CC (Closed Caption
         }
       };
 
-      return await fetch(zoomURL, options);
+      const response = await fetch(zoomURL, options);
+      return response;
+    }
+
+    scrollToBottom(){
+      window.scrollTo(0, document.body.scrollHeight);
     }
   }
 );
